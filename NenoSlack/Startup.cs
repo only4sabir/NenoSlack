@@ -48,6 +48,11 @@ namespace NenoSlack
             //services.AddDbContext<BloggingContext>(options =>
             //    options.UseSqlServer(@"server=DESKTOP-P419JGQ\\SQLEXPRESS;port=1433;database=EMSNew;uid=sa;password=P@ssw0rd"));
 
+            services.AddDistributedMemoryCache();
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);//You can set Time   
+                options.Cookie.HttpOnly = true;
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.Configure<MvcOptions>(options =>
             {
@@ -75,6 +80,7 @@ namespace NenoSlack
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

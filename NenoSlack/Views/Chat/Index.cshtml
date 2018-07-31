@@ -1,7 +1,8 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Http
+@{
     ViewData["Title"] = "Home Page";
+    OnlineUser user = ViewBag.UseDetail;
 }
-
 <div id="frame">
     <div id="sidepanel">
         <div id="profile">
@@ -115,7 +116,10 @@
 </div>
 <script src="~/lib/signalr/signalr.js"></script>
 <script src="~/js/chat.js"></script>
-<script>
+<script type="text/javascript">
+    var UserId = '@user.UserId';
+    var UserName = '@user.UserName';
+    var Img = '@user.Img';
     managechatbody();
 </script>
 <script>

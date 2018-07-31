@@ -24,6 +24,7 @@ namespace NenoSlack.Models
         public int UserId { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
+        public string Img { get; set; }
 
         public List<ChatDetail> ChatDetails { get; set; }
     }

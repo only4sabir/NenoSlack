@@ -6,12 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NenoSlack.Models;
-using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace NenoSlack.Controllers
 {
     public class LoginController : Controller
     {
+        const int SessionUserId = 0;
         private readonly BloggingContext _context;
 
         public LoginController(BloggingContext context)
@@ -44,11 +46,16 @@ namespace NenoSlack.Controllers
                 var user = _context.UserDetail.Where(s => s.UserName == userDetail.UserName && s.Password == userDetail.Password).ToList().FirstOrDefault();
                 if (user != null)
                 {
-                    //OnlineUser ouser = new OnlineUser();
-                    //ouser.UserId = user.UserId;
-                    //ouser.connectionIds = new List<ConnectionId>();
-
-                    //Session["User"] = ouser;
+                    //SessionValue.onlineUsers.Add(new OnlineUser { UserId = user.UserId, connectionIds = new List<string>(), Img = user.Img });
+                    
+                    OnlineUser ouser = new OnlineUser();
+                    ouser.UserId = user.UserId;
+                    ouser.UserName = user.UserName;
+                    ouser.Img = user.Img;
+                    ouser.connectionIds = new List<string>();
+                    HttpContext.Session.SetString("UseDetail", JsonConvert.SerializeObject(ouser));
+                    int UserId = user.UserId;
+                    HttpContext.Session.SetInt32("UserId", UserId);
                     return RedirectToAction("Index", "Chat");
                 }
             }

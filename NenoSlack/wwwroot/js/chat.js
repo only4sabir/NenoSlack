@@ -10,7 +10,7 @@ const connection = new signalR.HubConnectionBuilder()
     .withUrl("/chatHub")
     .build();
 
-connection.on("ReceiveMessage", (user, message,senderId) => {
+connection.on("ReceiveMessage", (user, message, senderId) => {
     console.log(user);
     console.log(message);
     const msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -21,9 +21,14 @@ connection.on("ReceiveMessage", (user, message,senderId) => {
     //document.getElementById("messagesList").appendChild(li);
 });
 
-console.log('satar');
-connection.start().catch(err => console.error(err.toString()));
-console.log('end');
+//console.log('satar');
+//connection.start().catch(err => console.error(err.toString()));
+
+connection.start().then(res => {
+    connection.invoke("ConnectUser", UserId, UserName, Img).catch(err => console.error(err.toString()));
+    //connection.invoke("SendMessage", user, message).catch(err => console.error(err.toString()));
+}).catch(err => console.error(err.toString()));
+//console.log('end');
 
 //document.getElementById("sendButton").addEventListener("click", event => {
 //    const user = "";// document.getElementById("userInput").value;
