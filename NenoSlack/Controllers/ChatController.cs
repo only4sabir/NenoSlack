@@ -18,5 +18,21 @@ namespace NenoSlack.Controllers
             ViewBag.UseDetail = s;
             return View();
         }
+        // GET: Departments/Edit/5
+
+        //// GET: Departments/Edit/5
+        //public async Task<IActionResult> Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    var department = await _context.Department.FindAsync(id);
+        //    if (department == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(department);
+        //}
     }
 }
